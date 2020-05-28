@@ -3,6 +3,8 @@
 #include <variant>
 #include <vector>
 
+#pragma warning(disable : 26444)
+
 namespace bf {
 
 namespace instrs {

@@ -21,7 +21,7 @@ std::optional<bf::LinkedLoops> bf::LinkedLoops::Link(const Program& program) {
   for (size_t i = 0; i < program.size(); ++i) {
     const auto& instruction = program[i];
 
-    auto unmatched = false;
+    bool unmatched = false;
 
     std::visit(overload{[&](const LoopStart&) { loopStack.emplace_back(i); },
                         [&](const LoopEnd&) {

@@ -1,5 +1,4 @@
 #include "InstructionDump.hpp"
-#include <iostream>
 #include "Assert.hpp"
 #include "Instruction.hpp"
 #include "LinkedLoops.hpp"

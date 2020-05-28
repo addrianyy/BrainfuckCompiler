@@ -60,6 +60,9 @@
     <ClCompile Include="InstructionDump.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Assert.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Instruction.hpp">

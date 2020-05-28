@@ -1,6 +1,14 @@
 #pragma once
-#include <cassert>
+#include <cstdint>
 
-// TODO: make this working on release builds
+// Assert working on release builds.
 
-#define Assert(x) assert(x)
+void AssertInternal(bool condition,
+                    const char* conditionText,
+                    const char* filename,
+                    uint32_t lineNumer);
+
+#define MAKE_STRING(s) MAKE_STRING_1(s)
+#define MAKE_STRING_1(s) #s
+
+#define Assert(x) AssertInternal((x), MAKE_STRING(x), __FILE__, __LINE__)

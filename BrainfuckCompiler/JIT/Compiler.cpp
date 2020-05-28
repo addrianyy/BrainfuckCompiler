@@ -63,6 +63,8 @@ void bf::jit::Compiler::Compile() {
 }
 
 void bf::jit::Compiler::Run(size_t bufferSize) {
+  Assert(sizeof(void*) == 8 && "Only 64bit mode JIT is supported.");
+
   Assert(compiledCode.GetSize() > 0);
 
   const auto& underlying = compiledCode.Underlying();
