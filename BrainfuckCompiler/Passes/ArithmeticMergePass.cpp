@@ -4,6 +4,8 @@
 void bf::passes::ArithmeticMergePass::Initialize() {}
 
 bf::Program bf::passes::ArithmeticMergePass::Optimize(bf::Program program) {
+  using namespace instrs;
+
   bf::Program optimizedProgram;
   optimizedProgram.reserve(program.size());
 
@@ -22,26 +24,26 @@ bf::Program bf::passes::ArithmeticMergePass::Optimize(bf::Program program) {
       writeStreakInstruction();
     }
 
-    if (const auto mp = std::get_if<bf::ModifyPointer>(&instruction)) {
+    if (const auto mp = std::get_if<ModifyPointer>(&instruction)) {
       if (!streakInstruction.has_value()) {
         streakInstruction = *mp;
         continue;
       }
 
-      auto& streak = std::get<bf::ModifyPointer>(*streakInstruction);
+      auto& streak = std::get<ModifyPointer>(*streakInstruction);
 
       streak.offset += mp->offset;
 
       continue;
     }
 
-    if (const auto mv = std::get_if<bf::ModifyValue>(&instruction)) {
+    if (const auto mv = std::get_if<ModifyValue>(&instruction)) {
       if (!streakInstruction.has_value()) {
         streakInstruction = *mv;
         continue;
       }
 
-      auto& streak = std::get<bf::ModifyValue>(*streakInstruction);
+      auto& streak = std::get<ModifyValue>(*streakInstruction);
 
       if (streak.offset == mv->offset) {
         streak.difference += mv->difference;

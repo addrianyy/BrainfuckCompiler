@@ -26,6 +26,8 @@ bool Match(const bf::Instruction* instruction,
 }
 
 bf::Program bf::passes::OptimizeClearloopsPass::Optimize(bf::Program program) {
+  using namespace instrs;
+
   bf::Program optimizedProgram;
   optimizedProgram.reserve(program.size());
 

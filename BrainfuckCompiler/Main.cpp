@@ -27,7 +27,6 @@ int main() {
   passManager.Add<bf::passes::ComplexArithmeticMergePass>();
   passManager.Add<bf::passes::OptimizeCopyloopsPass>();
 
-
   while (passManager.RunOnProgram(program, true)) {
   }
 
@@ -37,13 +36,12 @@ int main() {
 
   std::cin.get();
 
-
   const auto bufferSize = 300'000;
 
-  //bf::DumpProgram(std::cout, program);
+  // bf::DumpProgram(std::cout, program);
 
   bf::jit::RunProgramJITed(program, bufferSize);
-  //bf::interpreter::RunProgramInterpreted(program, bufferSize);
+  // bf::interpreter::RunProgramInterpreted(program, bufferSize);
 
   bf::io::Flush();
 }

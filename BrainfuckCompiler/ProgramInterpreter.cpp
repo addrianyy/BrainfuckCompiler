@@ -6,6 +6,8 @@
 
 void bf::interpreter::RunProgramInterpreted(const Program& program,
                                             size_t bufferSize) {
+  using namespace instrs;
+
   std::vector<uint8_t> buffer(bufferSize);
 
   uint8_t* currentPointer = buffer.data();
@@ -19,7 +21,7 @@ void bf::interpreter::RunProgramInterpreted(const Program& program,
     std::visit(
         overload{[&](const ModifyPointer& mp) { currentPointer += mp.offset; },
                  [&](const ModifyValue& mv) {
-                   *(currentPointer + mv.offset) += mv.difference;
+                   *(currentPointer + mv.offset) += uint8_t(mv.difference);
                  },
                  [&](const LoopStart& ls) {
                    if (*currentPointer == 0) {

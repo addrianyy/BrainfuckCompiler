@@ -3,14 +3,16 @@
 #include "../Assert.hpp"
 
 static bool IsLoop(const bf::Instruction& instruction) {
-  return std::holds_alternative<bf::LoopStart>(instruction) ||
-         std::holds_alternative<bf::LoopEnd>(instruction);
+  return std::holds_alternative<bf::instrs::LoopStart>(instruction) ||
+         std::holds_alternative<bf::instrs::LoopEnd>(instruction);
 }
 
 void bf::passes::ComplexArithmeticMergePass::Initialize() {}
 
 bf::Program bf::passes::ComplexArithmeticMergePass::Optimize(
     bf::Program program) {
+  using namespace instrs;
+
   bf::Program optimizedProgram;
   optimizedProgram.reserve(program.size());
 

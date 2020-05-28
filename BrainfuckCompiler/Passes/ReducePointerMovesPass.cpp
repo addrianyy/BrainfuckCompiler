@@ -5,40 +5,41 @@
 void bf::passes::ReducePointerMovesPass::Initialize() {}
 
 bf::Program bf::passes::ReducePointerMovesPass::Optimize(bf::Program program) {
+  using namespace instrs;
+
   bf::Program optimizedProgram;
   optimizedProgram.reserve(program.size());
 
   int64_t currentOffset = 0;
 
   for (auto& instruction : program) {
-    if (const auto mp = std::get_if<bf::ModifyPointer>(&instruction)) {
+    if (const auto mp = std::get_if<ModifyPointer>(&instruction)) {
       currentOffset += mp->offset;
       continue;
     }
 
     bool barrier = false;
 
-    std::visit(
-        overload{[&](bf::ModifyValue& mv) { mv.offset += currentOffset; },
-                 [&](bf::ReadChar& rc) { rc.offset += currentOffset; },
-                 [&](bf::WriteChar& wc) { wc.offset += currentOffset; },
-                 [&](bf::SetValue& sv) { sv.offset += currentOffset; },
-                 [&](bf::CopyAddValue& cav) {
-                   cav.from += currentOffset;
-                   cav.to += currentOffset;
-                 },
-                 [&](bf::CopyValue& cv) {
-                   cv.from += currentOffset;
-                   cv.to += currentOffset;
-                 },
-                 [&](bf::LoopStart&) { barrier = true; },
-                 [&](bf::LoopEnd&) { barrier = true; },
-                 [&](auto&&) { Assert(false); }},
-        instruction);
+    std::visit(overload{[&](ModifyValue& mv) { mv.offset += currentOffset; },
+                        [&](ReadChar& rc) { rc.offset += currentOffset; },
+                        [&](WriteChar& wc) { wc.offset += currentOffset; },
+                        [&](SetValue& sv) { sv.offset += currentOffset; },
+                        [&](CopyAddValue& cav) {
+                          cav.from += currentOffset;
+                          cav.to += currentOffset;
+                        },
+                        [&](CopyValue& cv) {
+                          cv.from += currentOffset;
+                          cv.to += currentOffset;
+                        },
+                        [&](LoopStart&) { barrier = true; },
+                        [&](LoopEnd&) { barrier = true; },
+                        [&](auto&&) { Assert(false); }},
+               instruction);
 
     if (barrier) {
       if (currentOffset != 0) {
-        optimizedProgram.emplace_back(bf::ModifyPointer{currentOffset});
+        optimizedProgram.emplace_back(ModifyPointer{currentOffset});
       }
 
       currentOffset = 0;

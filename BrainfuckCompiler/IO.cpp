@@ -15,15 +15,11 @@ void bf::io::Flush() {
 }
 
 void bf::io::WriteChar(char c) {
-  /*
   if (CurrentSize + 1 > BufferMaxSize) {
     Flush();
   }
 
   Buffer[CurrentSize++] = c;
-  */
-
-  putchar(c);
 }
 
 char bf::io::ReadChar() {

@@ -4,13 +4,15 @@
 void bf::passes::OptimizeCopyloopsPass::Initialize() {}
 
 bf::Program bf::passes::OptimizeCopyloopsPass::Optimize(bf::Program program) {
+  using namespace instrs;
+
   bf::Program optimizedProgram;
   optimizedProgram.reserve(program.size());
 
   std::unordered_map<int64_t, int64_t> mapping;
 
   for (size_t i = 0; i < program.size(); ++i) {
-    if (!std::holds_alternative<bf::LoopStart>(program[i])) {
+    if (!std::holds_alternative<LoopStart>(program[i])) {
       optimizedProgram.emplace_back(program[i]);
       continue;
     }
@@ -24,7 +26,7 @@ bf::Program bf::passes::OptimizeCopyloopsPass::Optimize(bf::Program program) {
 
     for (; j < program.size(); ++j) {
       const auto& instruction = program[j];
-      if (std::holds_alternative<bf::LoopEnd>(instruction)) {
+      if (std::holds_alternative<LoopEnd>(instruction)) {
         brokeOnLoop = true;
         break;
       }
@@ -55,7 +57,7 @@ bf::Program bf::passes::OptimizeCopyloopsPass::Optimize(bf::Program program) {
       if (zeroIt != mapping.end() && zeroIt->second == -1) {
         folded = true;
 
-        for (const auto [offset, mult] : mapping) {
+        for (const auto& [offset, mult] : mapping) {
           if (offset == 0) {
             continue;
           }

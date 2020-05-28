@@ -3,6 +3,8 @@
 #include "LinkedLoops.hpp"
 
 bf::Program bf::ParseProgram(std::istream& input) {
+  using namespace instrs;
+
   const std::unordered_map<char, Instruction> mapping{
       {'>', ModifyPointer::SingleAdd()},
       {'<', ModifyPointer::SingleSubtract()},

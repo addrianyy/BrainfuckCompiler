@@ -6,7 +6,7 @@
 #include "VisitorHelper.hpp"
 
 static void DumpModifyPointer(std::ostream& output,
-                              const bf::ModifyPointer& mp) {
+                              const bf::instrs::ModifyPointer& mp) {
   auto offset = mp.offset;
 
   if (mp.offset < 0) {
@@ -19,7 +19,8 @@ static void DumpModifyPointer(std::ostream& output,
   output << offset << "\n";
 }
 
-static void DumpModifyValue(std::ostream& output, const bf::ModifyValue& mv) {
+static void DumpModifyValue(std::ostream& output,
+                            const bf::instrs::ModifyValue& mv) {
   auto difference = mv.difference;
 
   output << "p[" << mv.offset << "] ";
@@ -34,20 +35,21 @@ static void DumpModifyValue(std::ostream& output, const bf::ModifyValue& mv) {
   output << difference << "\n";
 }
 
-static void DumpWriteChar(std::ostream& output, const bf::WriteChar& wc) {
+static void DumpWriteChar(std::ostream& output,
+                          const bf::instrs::WriteChar& wc) {
   output << "putchar(p[" << wc.offset << "])\n";
 }
 
-static void DumpReadChar(std::ostream& output, const bf::ReadChar& rc) {
+static void DumpReadChar(std::ostream& output, const bf::instrs::ReadChar& rc) {
   output << "p[" << rc.offset << "] = getchar()\n";
 }
 
-static void DumpSetValue(std::ostream& output, const bf::SetValue& sv) {
+static void DumpSetValue(std::ostream& output, const bf::instrs::SetValue& sv) {
   output << "p[" << sv.offset << "] = " << uint32_t(sv.value) << "\n";
 }
 
 static void DumpCopyAddValue(std::ostream& output,
-                             const bf::CopyAddValue& cav) {
+                             const bf::instrs::CopyAddValue& cav) {
   output << "p[" << cav.to << "] += p[" << cav.from << "]";
 
   if (cav.mult != 1) {
@@ -57,11 +59,14 @@ static void DumpCopyAddValue(std::ostream& output,
   output << "\n";
 }
 
-static void DumpCopyValue(std::ostream& output, const bf::CopyValue& cv) {
+static void DumpCopyValue(std::ostream& output,
+                          const bf::instrs::CopyValue& cv) {
   output << "p[" << cv.to << "] = p[" << cv.from << "]\n";
 }
 
 void bf::DumpInstruction(std::ostream& output, const Instruction& instruction) {
+  using namespace instrs;
+
   std::visit(
       overload{[&](const ModifyPointer& mp) { DumpModifyPointer(output, mp); },
                [&](const ModifyValue& mv) { DumpModifyValue(output, mv); },
@@ -88,7 +93,7 @@ void bf::DumpProgram(std::ostream& output, const Program& program) {
   for (size_t i = 0; i < program.size(); ++i) {
     const auto& instruction = program[i];
 
-    if (std::holds_alternative<LoopStart>(instruction)) {
+    if (std::holds_alternative<instrs::LoopStart>(instruction)) {
       const auto labelNumber = nextLabelNumber++;
       labelNumbers[i] = labelNumber;
 
@@ -97,7 +102,7 @@ void bf::DumpProgram(std::ostream& output, const Program& program) {
       continue;
     }
 
-    if (std::holds_alternative<LoopEnd>(instruction)) {
+    if (std::holds_alternative<instrs::LoopEnd>(instruction)) {
       const auto begin = *loops->BeginFromEnd(i);
       const auto labelNumber = labelNumbers[begin];
 

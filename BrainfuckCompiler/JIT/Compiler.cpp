@@ -6,6 +6,8 @@
 #include "Codegen.hpp"
 
 void bf::jit::Compiler::CompileInstruction(const Instruction& instruction) {
+  using namespace instrs;
+
   std::visit(
       overload{
           [&](const ModifyPointer& mp) {
@@ -78,7 +80,7 @@ void bf::jit::Compiler::Run(size_t bufferSize) {
 
     const auto entry = JITEntrypoint(memory);
 
-    entry(buffer.data(), bf::io::WriteChar, bf::io::ReadChar);
+    entry(buffer.data(), (void*)bf::io::WriteChar, (void*)bf::io::ReadChar);
 
     VirtualFree(memory, 0, MEM_FREE);
   }

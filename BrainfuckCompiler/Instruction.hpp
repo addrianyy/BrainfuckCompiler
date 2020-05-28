@@ -5,6 +5,8 @@
 
 namespace bf {
 
+namespace instrs {
+
 struct ModifyPointer {
   int64_t offset;
 
@@ -52,13 +54,15 @@ struct CopyValue {
   int64_t to;
 };
 
-using Instruction = std::variant<ModifyPointer,
-                                 ModifyValue,
-                                 LoopStart,
-                                 LoopEnd,
-                                 ReadChar,
-                                 WriteChar,
-                                 SetValue,
-                                 CopyAddValue,
-                                 CopyValue>;
+}  // namespace instrs
+
+using Instruction = std::variant<instrs::ModifyPointer,
+                                 instrs::ModifyValue,
+                                 instrs::LoopStart,
+                                 instrs::LoopEnd,
+                                 instrs::ReadChar,
+                                 instrs::WriteChar,
+                                 instrs::SetValue,
+                                 instrs::CopyAddValue,
+                                 instrs::CopyValue>;
 }  // namespace bf

@@ -11,6 +11,8 @@ std::optional<size_t> bf::LinkedLoops::TryGet(const LoopMap& map, size_t key) {
 }
 
 std::optional<bf::LinkedLoops> bf::LinkedLoops::Link(const Program& program) {
+  using namespace instrs;
+
   std::vector<size_t> loopStack;
 
   LoopMap beginToEnd;
@@ -21,24 +23,23 @@ std::optional<bf::LinkedLoops> bf::LinkedLoops::Link(const Program& program) {
 
     auto unmatched = false;
 
-    std::visit(
-        overload{[&](const LoopStart& _ls) { loopStack.emplace_back(i); },
-                 [&](const LoopEnd& _le) {
-                   if (loopStack.empty()) {
-                     unmatched = true;
-                     return;
-                   }
+    std::visit(overload{[&](const LoopStart&) { loopStack.emplace_back(i); },
+                        [&](const LoopEnd&) {
+                          if (loopStack.empty()) {
+                            unmatched = true;
+                            return;
+                          }
 
-                   const auto begin = loopStack.back();
-                   const auto end = i;
+                          const auto begin = loopStack.back();
+                          const auto end = i;
 
-                   beginToEnd[begin] = end;
-                   endToBegin[end] = begin;
+                          beginToEnd[begin] = end;
+                          endToBegin[end] = begin;
 
-                   loopStack.pop_back();
-                 },
-                 [](auto&&) {}},
-        instruction);
+                          loopStack.pop_back();
+                        },
+                        [](auto&&) {}},
+               instruction);
 
     if (unmatched) {
       return std::nullopt;
