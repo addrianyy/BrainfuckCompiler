@@ -1,4 +1,4 @@
-#include "ArithmeticMegePass.hpp"
+#include "ArithmeticMergePass.hpp"
 #include <optional>
 
 void bf::passes::ArithmeticMergePass::Initialize() {}
@@ -22,7 +22,7 @@ bf::Program bf::passes::ArithmeticMergePass::Optimize(bf::Program program) {
       writeStreakInstruction();
     }
 
-    if (auto mp = std::get_if<bf::ModifyPointer>(&instruction)) {
+    if (const auto mp = std::get_if<bf::ModifyPointer>(&instruction)) {
       if (!streakInstruction.has_value()) {
         streakInstruction = *mp;
         continue;
@@ -35,7 +35,7 @@ bf::Program bf::passes::ArithmeticMergePass::Optimize(bf::Program program) {
       continue;
     }
 
-    if (auto mv = std::get_if<bf::ModifyValue>(&instruction)) {
+    if (const auto mv = std::get_if<bf::ModifyValue>(&instruction)) {
       if (!streakInstruction.has_value()) {
         streakInstruction = *mv;
         continue;

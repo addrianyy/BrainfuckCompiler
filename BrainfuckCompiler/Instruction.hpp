@@ -36,10 +36,29 @@ struct WriteChar {
   static WriteChar WriteCurrent() { return WriteChar{0}; }
 };
 
+struct SetValue {
+  int64_t offset;
+  uint8_t value;
+};
+
+struct CopyAddValue {
+  int64_t from;
+  int64_t to;
+  int64_t mult;
+};
+
+struct CopyValue {
+  int64_t from;
+  int64_t to;
+};
+
 using Instruction = std::variant<ModifyPointer,
                                  ModifyValue,
                                  LoopStart,
                                  LoopEnd,
                                  ReadChar,
-                                 WriteChar>;
+                                 WriteChar,
+                                 SetValue,
+                                 CopyAddValue,
+                                 CopyValue>;
 }  // namespace bf

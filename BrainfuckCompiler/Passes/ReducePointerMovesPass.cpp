@@ -11,7 +11,7 @@ bf::Program bf::passes::ReducePointerMovesPass::Optimize(bf::Program program) {
   int64_t currentOffset = 0;
 
   for (auto& instruction : program) {
-    if (auto mp = std::get_if<bf::ModifyPointer>(&instruction)) {
+    if (const auto mp = std::get_if<bf::ModifyPointer>(&instruction)) {
       currentOffset += mp->offset;
       continue;
     }
@@ -22,6 +22,15 @@ bf::Program bf::passes::ReducePointerMovesPass::Optimize(bf::Program program) {
         overload{[&](bf::ModifyValue& mv) { mv.offset += currentOffset; },
                  [&](bf::ReadChar& rc) { rc.offset += currentOffset; },
                  [&](bf::WriteChar& wc) { wc.offset += currentOffset; },
+                 [&](bf::SetValue& sv) { sv.offset += currentOffset; },
+                 [&](bf::CopyAddValue& cav) {
+                   cav.from += currentOffset;
+                   cav.to += currentOffset;
+                 },
+                 [&](bf::CopyValue& cv) {
+                   cv.from += currentOffset;
+                   cv.to += currentOffset;
+                 },
                  [&](bf::LoopStart&) { barrier = true; },
                  [&](bf::LoopEnd&) { barrier = true; },
                  [&](auto&&) { Assert(false); }},

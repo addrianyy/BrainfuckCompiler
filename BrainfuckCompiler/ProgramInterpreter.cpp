@@ -1,5 +1,6 @@
 #include "ProgramInterpreter.hpp"
 #include "Assert.hpp"
+#include "IO.hpp"
 #include "LinkedLoops.hpp"
 #include "VisitorHelper.hpp"
 
@@ -32,10 +33,21 @@ void bf::interpreter::RunProgramInterpreted(const Program& program,
                    advanceII = false;
                  },
                  [&](const WriteChar& wc) {
-                   std::putchar(char(*(currentPointer + wc.offset)));
+                   bf::io::WriteChar(char(*(currentPointer + wc.offset)));
                  },
                  [&](const ReadChar& rc) {
-                   *(currentPointer + rc.offset) = uint8_t(std::getchar());
+                   *(currentPointer + rc.offset) = uint8_t(bf::io::ReadChar());
+                 },
+                 [&](const SetValue& sv) {
+                   *(currentPointer + sv.offset) = sv.value;
+                 },
+                 [&](const CopyAddValue& cav) {
+                   *(currentPointer + cav.to) +=
+                       int8_t(*(currentPointer + cav.from)) * int8_t(cav.mult);
+                 },
+                 [&](const CopyValue& cv) {
+                   *(currentPointer + cv.to) =
+                       int8_t(*(currentPointer + cv.from));
                  },
                  [&](auto&&) { Assert(false); }},
         program[instructionIndex]);

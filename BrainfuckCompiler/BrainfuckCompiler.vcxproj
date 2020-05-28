@@ -145,12 +145,17 @@
   <ItemGroup>
     <ClCompile Include="JIT\Compiler.cpp" />
     <ClCompile Include="JIT\Codegen.cpp" />
+    <ClCompile Include="IO.cpp" />
     <ClCompile Include="JIT\ProgramJIT.cpp" />
     <ClCompile Include="LinkedLoops.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="OptimizationPassManager.cpp" />
-    <ClCompile Include="Passes\ArithmeticMegePass.cpp" />
+    <ClCompile Include="Passes\ArithmeticMergePass.cpp" />
+    <ClCompile Include="Passes\OptimizeClearloopsPass.cpp" />
+    <ClCompile Include="Passes\OptimizeCopyloopsPass.cpp" />
+    <ClCompile Include="InstructionDump.cpp" />
     <ClCompile Include="Passes\ReducePointerMovesPass.cpp" />
+    <ClCompile Include="Passes\ComplexArithmeticMergePass.cpp" />
     <ClCompile Include="Program.cpp" />
     <ClCompile Include="ProgramInterpreter.cpp" />
   </ItemGroup>
@@ -159,13 +164,18 @@
     <ClInclude Include="JIT\ByteBuffer.hpp" />
     <ClInclude Include="JIT\Compiler.hpp" />
     <ClInclude Include="JIT\Codegen.hpp" />
+    <ClInclude Include="IO.hpp" />
     <ClInclude Include="JIT\ProgramJIT.hpp" />
     <ClInclude Include="LinkedLoops.hpp" />
     <ClInclude Include="OptimizationPass.hpp" />
     <ClInclude Include="OptimizationPassManager.hpp" />
-    <ClInclude Include="Passes\ArithmeticMegePass.hpp" />
+    <ClInclude Include="Passes\ArithmeticMergePass.hpp" />
     <ClInclude Include="Assert.hpp" />
+    <ClInclude Include="Passes\OptimizeClearloopsPass.hpp" />
+    <ClInclude Include="Passes\OptimizeCopyloopsPass.hpp" />
+    <ClInclude Include="InstructionDump.hpp" />
     <ClInclude Include="Passes\ReducePointerMovesPass.hpp" />
+    <ClInclude Include="Passes\ComplexArithmeticMergePass.hpp" />
     <ClInclude Include="Program.hpp" />
     <ClInclude Include="ProgramInterpreter.hpp" />
     <ClInclude Include="VisitorHelper.hpp" />

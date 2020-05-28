@@ -16,7 +16,7 @@ class OptimizationPassManager {
     passes.emplace_back(std::make_unique<T>(std::forward<Args>(args)...));
   }
 
-  void RunOnProgram(bf::Program& program, bool debugLog = false);
+  bool RunOnProgram(bf::Program& program, bool debugLog = false);
 };
 
 }  // namespace bf::opt

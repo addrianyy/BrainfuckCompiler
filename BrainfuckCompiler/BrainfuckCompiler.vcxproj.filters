@@ -30,9 +30,6 @@
     <ClCompile Include="OptimizationPassManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Passes\ArithmeticMegePass.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Passes\ReducePointerMovesPass.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -43,6 +40,24 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="JIT\ProgramJIT.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="IO.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Passes\ArithmeticMergePass.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Passes\ComplexArithmeticMergePass.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Passes\OptimizeClearloopsPass.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Passes\OptimizeCopyloopsPass.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="InstructionDump.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -68,9 +83,6 @@
     <ClInclude Include="OptimizationPassManager.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Passes\ArithmeticMegePass.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Passes\ReducePointerMovesPass.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -87,6 +99,24 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="JIT\ProgramJIT.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="IO.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Passes\OptimizeClearloopsPass.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Passes\ArithmeticMergePass.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Passes\ComplexArithmeticMergePass.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Passes\OptimizeCopyloopsPass.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="InstructionDump.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
