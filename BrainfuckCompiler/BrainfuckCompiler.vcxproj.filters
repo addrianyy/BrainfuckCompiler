@@ -36,7 +36,13 @@
     <ClCompile Include="Passes\ReducePointerMovesPass.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="JIT\JIT.cpp">
+    <ClCompile Include="JIT\Compiler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="JIT\Codegen.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="JIT\ProgramJIT.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -71,10 +77,16 @@
     <ClInclude Include="Assert.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="JIT\JIT.hpp">
+    <ClInclude Include="JIT\ByteBuffer.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="JIT\ByteBuffer.hpp">
+    <ClInclude Include="JIT\Compiler.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="JIT\Codegen.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="JIT\ProgramJIT.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

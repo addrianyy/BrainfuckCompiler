@@ -1,19 +1,16 @@
 #pragma once
-#include "../LinkedLoops.hpp"
 #include "../Program.hpp"
 #include "ByteBuffer.hpp"
 
 namespace bf::jit {
 
 struct LoopInstance {
-  uint64_t head;
-  uint64_t jz;
+  uint64_t condition;
+  uint64_t jumpToTheEnd;
 };
 
-class JITCompiler {
+class Compiler {
   Program program;
-  LinkedLoops loops;
-
   ByteBuffer compiledCode;
 
   std::vector<LoopInstance> loopStack;
@@ -21,11 +18,10 @@ class JITCompiler {
   void CompileInstruction(const Instruction& instruction);
 
  public:
-  JITCompiler(Program program)
-      : program(std::move(program)), loops(*LinkedLoops::Link(program)) {}
+  Compiler(Program program) : program(std::move(program)) {}
 
   void Compile();
-  void Run();
+  void Run(size_t bufferSize);
 };
 
 }  // namespace bf::jit

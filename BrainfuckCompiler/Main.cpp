@@ -1,5 +1,5 @@
 #include <fstream>
-#include "JIT/JIT.hpp"
+#include "JIT/ProgramJIT.hpp"
 #include "OptimizationPass.hpp"
 #include "OptimizationPassManager.hpp"
 #include "Passes/ArithmeticMegePass.hpp"
@@ -21,9 +21,8 @@ int main() {
     passManager.RunOnProgram(program);
   }
 
-  bf::jit::JITCompiler compiler(program);
-  compiler.Compile();
-  compiler.Run();
+  const auto bufferSize = 300'000;
 
-  //bf::interpreter::RunProgramInterpreted(program, 300'000);
+  bf::jit::RunProgramJITed(program, bufferSize);
+  // bf::interpreter::RunProgramInterpreted(program, bufferSize);
 }

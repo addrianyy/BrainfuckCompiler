@@ -143,7 +143,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="JIT\JIT.cpp" />
+    <ClCompile Include="JIT\Compiler.cpp" />
+    <ClCompile Include="JIT\Codegen.cpp" />
+    <ClCompile Include="JIT\ProgramJIT.cpp" />
     <ClCompile Include="LinkedLoops.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="OptimizationPassManager.cpp" />
@@ -155,7 +157,9 @@
   <ItemGroup>
     <ClInclude Include="Instruction.hpp" />
     <ClInclude Include="JIT\ByteBuffer.hpp" />
-    <ClInclude Include="JIT\JIT.hpp" />
+    <ClInclude Include="JIT\Compiler.hpp" />
+    <ClInclude Include="JIT\Codegen.hpp" />
+    <ClInclude Include="JIT\ProgramJIT.hpp" />
     <ClInclude Include="LinkedLoops.hpp" />
     <ClInclude Include="OptimizationPass.hpp" />
     <ClInclude Include="OptimizationPassManager.hpp" />
