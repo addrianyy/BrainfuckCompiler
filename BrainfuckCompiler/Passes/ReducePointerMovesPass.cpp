@@ -20,22 +20,23 @@ bf::Program bf::passes::ReducePointerMovesPass::Optimize(bf::Program program) {
 
     bool barrier = false;
 
-    std::visit(overload{[&](ModifyValue& mv) { mv.offset += currentOffset; },
-                        [&](ReadChar& rc) { rc.offset += currentOffset; },
-                        [&](WriteChar& wc) { wc.offset += currentOffset; },
-                        [&](SetValue& sv) { sv.offset += currentOffset; },
-                        [&](CopyAddValue& cav) {
-                          cav.from += currentOffset;
-                          cav.to += currentOffset;
-                        },
-                        [&](CopyValue& cv) {
-                          cv.from += currentOffset;
-                          cv.to += currentOffset;
-                        },
-                        [&](LoopStart&) { barrier = true; },
-                        [&](LoopEnd&) { barrier = true; },
-                        [&](auto&&) { Assert(false); }},
-               instruction);
+    std::visit(
+        overload{[&](ModifyValue& mv) { mv.offset += currentOffset; },
+                 [&](ReadChar& rc) { rc.offset += currentOffset; },
+                 [&](WriteChar& wc) { wc.offset += currentOffset; },
+                 [&](SetValue& sv) { sv.offset += currentOffset; },
+                 [&](CopyAddValue& cav) {
+                   cav.from += currentOffset;
+                   cav.to += currentOffset;
+                 },
+                 [&](CopyValue& cv) {
+                   cv.from += currentOffset;
+                   cv.to += currentOffset;
+                 },
+                 [&](LoopStart&) { barrier = true; },
+                 [&](LoopEnd&) { barrier = true; },
+                 [&](auto&&) { Assert(false && "Unknown instruction."); }},
+        instruction);
 
     if (barrier) {
       if (currentOffset != 0) {

@@ -138,7 +138,7 @@ bf::Program bf::passes::ComplexArithmeticMergePass::Optimize(
         break;
       }
 
-      Assert(false);
+      Assert(false && "Unknown instruction.");
     }
 
     if (j == program.size()) {

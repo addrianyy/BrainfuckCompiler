@@ -12,8 +12,8 @@ bf::Program bf::ParseProgram(std::istream& input) {
       {'-', ModifyValue::SingleSubtract()},
       {'[', LoopStart{}},
       {']', LoopEnd{}},
-      {',', ReadChar{}},
-      {'.', WriteChar{}},
+      {',', ReadChar::ReadCurrent()},
+      {'.', WriteChar::WriteCurrent()},
   };
 
   Program program;

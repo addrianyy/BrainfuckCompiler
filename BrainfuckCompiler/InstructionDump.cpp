@@ -76,7 +76,7 @@ void bf::DumpInstruction(std::ostream& output, const Instruction& instruction) {
                [&](const SetValue& sv) { DumpSetValue(output, sv); },
                [&](const CopyAddValue& cav) { DumpCopyAddValue(output, cav); },
                [&](const CopyValue& cv) { DumpCopyValue(output, cv); },
-               [](auto&&) { Assert(false); }},
+               [](auto&&) { Assert(false && "Unknown instruction."); }},
       instruction);
 }
 

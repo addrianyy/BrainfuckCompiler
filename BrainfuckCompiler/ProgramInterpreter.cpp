@@ -51,7 +51,7 @@ void bf::interpreter::RunProgramInterpreted(const Program& program,
                    *(currentPointer + cv.to) =
                        int8_t(*(currentPointer + cv.from));
                  },
-                 [&](auto&&) { Assert(false); }},
+                 [&](auto&&) { Assert(false && "Unknown instruction."); }},
         program[instructionIndex]);
 
     if (advanceII) {

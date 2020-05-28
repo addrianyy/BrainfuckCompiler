@@ -35,21 +35,21 @@ void bf::jit::Compiler::CompileInstruction(const Instruction& instruction) {
             loopStack.emplace_back(codegen::EmitLoopStart(compiledCode));
           },
           [&](const LoopEnd& le) {
-            Assert(!loopStack.empty());
+            Assert(!loopStack.empty() && "Unmatched loop markers.");
 
             const auto instance = loopStack.back();
             loopStack.pop_back();
 
             codegen::EmitLoopEnd(instance, compiledCode);
           },
-          [&](auto&&) { Assert(false); }},
+          [&](auto&&) { Assert(false && "Unknown instruction."); }},
       instruction);
 }
 
 void bf::jit::Compiler::Compile() {
   compiledCode.Underlying().reserve(program.size() * 10);
 
-  Assert(compiledCode.GetSize() == 0);
+  Assert(compiledCode.GetSize() == 0 && "Code is already compiled.");
 
   codegen::EmitPrologue(compiledCode);
 
@@ -65,7 +65,7 @@ void bf::jit::Compiler::Compile() {
 void bf::jit::Compiler::Run(size_t bufferSize) {
   Assert(sizeof(void*) == 8 && "Only 64bit mode JIT is supported.");
 
-  Assert(compiledCode.GetSize() > 0);
+  Assert(compiledCode.GetSize() > 0 && "Tried to run not compiled code.");
 
   const auto& underlying = compiledCode.Underlying();
 
@@ -73,17 +73,17 @@ void bf::jit::Compiler::Run(size_t bufferSize) {
       VirtualAlloc(nullptr, underlying.size(), MEM_COMMIT | MEM_RESERVE,
                    PAGE_EXECUTE_READWRITE);
 
-  if (memory) {
-    std::memcpy(memory, underlying.data(), underlying.size());
+  Assert(memory && "Failed to allocate RWX memory for JIT.");
 
-    std::vector<uint8_t> buffer(bufferSize);
+  std::memcpy(memory, underlying.data(), underlying.size());
 
-    using JITEntrypoint = void (*)(void*, void*, void*);
+  std::vector<uint8_t> buffer(bufferSize);
 
-    const auto entry = JITEntrypoint(memory);
+  using JITEntrypoint = void (*)(void*, void*, void*);
 
-    entry(buffer.data(), (void*)bf::io::WriteChar, (void*)bf::io::ReadChar);
+  const auto entry = JITEntrypoint(memory);
 
-    VirtualFree(memory, 0, MEM_FREE);
-  }
+  entry(buffer.data(), (void*)bf::io::WriteChar, (void*)bf::io::ReadChar);
+
+  VirtualFree(memory, 0, MEM_FREE);
 }

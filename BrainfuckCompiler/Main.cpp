@@ -1,6 +1,8 @@
 #include <fstream>
 #include <iostream>
+#include "Assert.hpp"
 #include "IO.hpp"
+#include "InstructionDump.hpp"
 #include "JIT/ProgramJIT.hpp"
 #include "OptimizationPassManager.hpp"
 #include "Passes/ArithmeticMergePass.hpp"
@@ -8,9 +10,7 @@
 #include "Passes/OptimizeClearloopsPass.hpp"
 #include "Passes/OptimizeCopyloopsPass.hpp"
 #include "Passes/ReducePointerMovesPass.hpp"
-#include "InstructionDump.hpp"
 #include "Program.hpp"
-#include "Assert.hpp"
 
 int main() {
   std::ifstream file("mandelbrot.bf");
