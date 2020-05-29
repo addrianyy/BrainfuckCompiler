@@ -159,7 +159,6 @@
     <ClCompile Include="LinkedLoops.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="OptimizationPassManager.cpp" />
-    <ClCompile Include="Passes\ArithmeticMergePass.cpp" />
     <ClCompile Include="Passes\OptimizeClearloopsPass.cpp" />
     <ClCompile Include="Passes\OptimizeCopyloopsPass.cpp" />
     <ClCompile Include="InstructionDump.cpp" />
@@ -178,7 +177,6 @@
     <ClInclude Include="LinkedLoops.hpp" />
     <ClInclude Include="OptimizationPass.hpp" />
     <ClInclude Include="OptimizationPassManager.hpp" />
-    <ClInclude Include="Passes\ArithmeticMergePass.hpp" />
     <ClInclude Include="Assert.hpp" />
     <ClInclude Include="Passes\OptimizeClearloopsPass.hpp" />
     <ClInclude Include="Passes\OptimizeCopyloopsPass.hpp" />

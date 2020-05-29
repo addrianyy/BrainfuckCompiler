@@ -5,7 +5,6 @@
 #include "InstructionDump.hpp"
 #include "JIT/ProgramJIT.hpp"
 #include "OptimizationPassManager.hpp"
-#include "Passes/ArithmeticMergePass.hpp"
 #include "Passes/ComplexArithmeticMergePass.hpp"
 #include "Passes/OptimizeClearloopsPass.hpp"
 #include "Passes/OptimizeCopyloopsPass.hpp"
@@ -22,7 +21,6 @@ int main() {
 
   bf::opt::OptimizationPassManager passManager;
 
-  // passManager.Add<bf::passes::ArithmeticMergePass>();
   passManager.Add<bf::passes::ReducePointerMovesPass>();
   passManager.Add<bf::passes::OptimizeClearloopsPass>();
   passManager.Add<bf::passes::OptimizeCopyloopsPass>();
@@ -32,13 +30,13 @@ int main() {
     //
   }
 
-  if (true) {
+  if (false) {
     bf::DumpProgram(std::cout, program);
   }
 
   constexpr auto bufferSize = 300'000;
 
-  // bf::jit::RunProgramJITed(program, bufferSize);
+  bf::jit::RunProgramJITed(program, bufferSize);
   // bf::interpreter::RunProgramInterpreted(program, bufferSize);
 
   bf::io::Flush();
