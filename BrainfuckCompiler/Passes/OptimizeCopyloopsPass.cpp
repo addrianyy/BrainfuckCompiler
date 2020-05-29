@@ -1,5 +1,7 @@
 #include "OptimizeCopyloopsPass.hpp"
+#include <iostream>
 #include <unordered_map>
+#include "../InstructionDump.hpp"
 
 void bf::passes::OptimizeCopyloopsPass::Initialize() {}
 
@@ -32,13 +34,7 @@ bf::Program bf::passes::OptimizeCopyloopsPass::Optimize(bf::Program program) {
       }
 
       if (const auto mv = std::get_if<ModifyValue>(&instruction)) {
-        const auto offset = currentOffset + mv->offset;
-        if (offset == 0 && !mapping.empty()) {
-          break;
-        }
-
-        mapping[offset] += mv->difference;
-
+        mapping[currentOffset + mv->offset] += mv->difference;
         continue;
       }
 
@@ -52,7 +48,7 @@ bf::Program bf::passes::OptimizeCopyloopsPass::Optimize(bf::Program program) {
 
     bool folded = false;
 
-    if (brokeOnLoop && currentOffset == 0 && mapping.size() > 1) {
+    if (brokeOnLoop && currentOffset == 0) {
       const auto zeroIt = mapping.find(0);
       if (zeroIt != mapping.end() && zeroIt->second == -1) {
         folded = true;
@@ -70,11 +66,11 @@ bf::Program bf::passes::OptimizeCopyloopsPass::Optimize(bf::Program program) {
     }
 
     if (!folded) {
-      const size_t add = program.size() == j ? 0 : 1;
-
-      for (size_t k = i; k < j + add; ++k) {
+      for (size_t k = i; k < j; ++k) {
         optimizedProgram.emplace_back(program[k]);
       }
+
+      j -= 1;
     }
 
     i = j;

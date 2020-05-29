@@ -11,6 +11,7 @@
 #include "Passes/OptimizeCopyloopsPass.hpp"
 #include "Passes/ReducePointerMovesPass.hpp"
 #include "Program.hpp"
+#include "ProgramInterpreter.hpp"
 
 int main() {
   std::ifstream file("mandelbrot.bf");
@@ -21,23 +22,24 @@ int main() {
 
   bf::opt::OptimizationPassManager passManager;
 
-  passManager.Add<bf::passes::ArithmeticMergePass>();
+  // passManager.Add<bf::passes::ArithmeticMergePass>();
   passManager.Add<bf::passes::ReducePointerMovesPass>();
   passManager.Add<bf::passes::OptimizeClearloopsPass>();
-  passManager.Add<bf::passes::ComplexArithmeticMergePass>();
   passManager.Add<bf::passes::OptimizeCopyloopsPass>();
+  passManager.Add<bf::passes::ComplexArithmeticMergePass>();
 
   while (passManager.RunOnProgram(program, true)) {
     //
   }
 
-  if (false) {
+  if (true) {
     bf::DumpProgram(std::cout, program);
   }
 
   constexpr auto bufferSize = 300'000;
 
-  bf::jit::RunProgramJITed(program, bufferSize);
+  // bf::jit::RunProgramJITed(program, bufferSize);
+  // bf::interpreter::RunProgramInterpreted(program, bufferSize);
 
   bf::io::Flush();
 }

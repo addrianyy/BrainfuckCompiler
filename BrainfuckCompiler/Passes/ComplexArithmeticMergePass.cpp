@@ -118,12 +118,16 @@ bf::Program bf::passes::ComplexArithmeticMergePass::Optimize(
         continue;
       }
 
-      const auto rc = std::get_if<ReadChar>(&instruction);
-      const auto wc = std::get_if<WriteChar>(&instruction);
-      if (rc || wc) {
-        const auto offset = rc ? rc->offset : wc->offset;
+      if (const auto wc = std::get_if<WriteChar>(&instruction)) {
+        applyVCAtOffset(wc->offset);
 
-        applyVCAtOffset(offset);
+        optimizedProgram.emplace_back(instruction);
+
+        continue;
+      }
+
+      if (const auto rc = std::get_if<ReadChar>(&instruction)) {
+        mapping.erase(rc->offset);
 
         optimizedProgram.emplace_back(instruction);
 
