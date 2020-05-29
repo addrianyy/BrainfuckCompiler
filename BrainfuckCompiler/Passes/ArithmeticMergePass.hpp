@@ -3,7 +3,7 @@
 
 namespace bf::passes {
 
-class ComplexArithmeticMergePass : public bf::opt::OptimizationPass {
+class ArithmeticMergePass : public bf::opt::OptimizationPass {
  public:
   virtual void Initialize();
   virtual bf::Program Optimize(bf::Program program);

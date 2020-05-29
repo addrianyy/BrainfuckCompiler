@@ -163,7 +163,7 @@
     <ClCompile Include="Passes\OptimizeCopyloopsPass.cpp" />
     <ClCompile Include="InstructionDump.cpp" />
     <ClCompile Include="Passes\ReducePointerMovesPass.cpp" />
-    <ClCompile Include="Passes\ComplexArithmeticMergePass.cpp" />
+    <ClCompile Include="Passes\ArithmeticMergePass.cpp" />
     <ClCompile Include="Program.cpp" />
     <ClCompile Include="ProgramInterpreter.cpp" />
   </ItemGroup>
@@ -182,7 +182,7 @@
     <ClInclude Include="Passes\OptimizeCopyloopsPass.hpp" />
     <ClInclude Include="InstructionDump.hpp" />
     <ClInclude Include="Passes\ReducePointerMovesPass.hpp" />
-    <ClInclude Include="Passes\ComplexArithmeticMergePass.hpp" />
+    <ClInclude Include="Passes\ArithmeticMergePass.hpp" />
     <ClInclude Include="Program.hpp" />
     <ClInclude Include="ProgramInterpreter.hpp" />
     <ClInclude Include="VisitorHelper.hpp" />

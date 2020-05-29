@@ -1,4 +1,4 @@
-#include "ComplexArithmeticMergePass.hpp"
+#include "ArithmeticMergePass.hpp"
 #include <unordered_map>
 #include "../Assert.hpp"
 
@@ -7,10 +7,9 @@ static bool IsLoop(const bf::Instruction& instruction) {
          std::holds_alternative<bf::instrs::LoopEnd>(instruction);
 }
 
-void bf::passes::ComplexArithmeticMergePass::Initialize() {}
+void bf::passes::ArithmeticMergePass::Initialize() {}
 
-bf::Program bf::passes::ComplexArithmeticMergePass::Optimize(
-    bf::Program program) {
+bf::Program bf::passes::ArithmeticMergePass::Optimize(bf::Program program) {
   using namespace instrs;
 
   bf::Program optimizedProgram;
@@ -155,8 +154,8 @@ bf::Program bf::passes::ComplexArithmeticMergePass::Optimize(
   return optimizedProgram;
 }
 
-const std::string& bf::passes::ComplexArithmeticMergePass::GetPassName() const {
-  static std::string passName = "Complex arithmetic merge pass";
+const std::string& bf::passes::ArithmeticMergePass::GetPassName() const {
+  static std::string passName = "Arithmetic merge pass";
 
   return passName;
 }

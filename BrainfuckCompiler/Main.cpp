@@ -5,7 +5,7 @@
 #include "InstructionDump.hpp"
 #include "JIT/ProgramJIT.hpp"
 #include "OptimizationPassManager.hpp"
-#include "Passes/ComplexArithmeticMergePass.hpp"
+#include "Passes/ArithmeticMergePass.hpp"
 #include "Passes/OptimizeClearloopsPass.hpp"
 #include "Passes/OptimizeCopyloopsPass.hpp"
 #include "Passes/ReducePointerMovesPass.hpp"
@@ -24,7 +24,7 @@ int main() {
   passManager.Add<bf::passes::ReducePointerMovesPass>();
   passManager.Add<bf::passes::OptimizeClearloopsPass>();
   passManager.Add<bf::passes::OptimizeCopyloopsPass>();
-  passManager.Add<bf::passes::ComplexArithmeticMergePass>();
+  passManager.Add<bf::passes::ArithmeticMergePass>();
 
   while (passManager.RunOnProgram(program, true)) {
     //

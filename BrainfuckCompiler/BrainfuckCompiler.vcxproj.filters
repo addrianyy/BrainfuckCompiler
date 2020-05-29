@@ -45,9 +45,6 @@
     <ClCompile Include="IO.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Passes\ComplexArithmeticMergePass.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Passes\OptimizeClearloopsPass.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -58,6 +55,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Assert.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Passes\ArithmeticMergePass.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -107,13 +107,13 @@
     <ClInclude Include="Passes\OptimizeClearloopsPass.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Passes\ComplexArithmeticMergePass.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Passes\OptimizeCopyloopsPass.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="InstructionDump.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Passes\ArithmeticMergePass.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

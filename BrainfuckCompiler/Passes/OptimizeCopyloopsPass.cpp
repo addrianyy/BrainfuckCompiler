@@ -1,7 +1,5 @@
 #include "OptimizeCopyloopsPass.hpp"
-#include <iostream>
 #include <unordered_map>
-#include "../InstructionDump.hpp"
 
 void bf::passes::OptimizeCopyloopsPass::Initialize() {}
 
